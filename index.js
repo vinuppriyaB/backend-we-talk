@@ -42,10 +42,13 @@ io.on("connection", (socket) => {
     socket.emit("connected");
   });
   socket.on("join chat", (room) => {
+    console.log("room", room);
     socket.join(room);
     console.log("user joined room: " + room);
   });
   socket.on("new message", (newMessageReceived) => {
+    console.log("newMessageReceived" + newMessageReceived);
+    console.log(newMessageReceived);
     var chat = newMessageReceived.chat;
     if (!chat.users) console.log("chat.user is not defined");
     chat.users.forEach((user) => {
