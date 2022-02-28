@@ -51,7 +51,7 @@ router.post("/", authorizedUser, async (req, res) => {
 
 router.get("/", authorizedUser, async (req, res) => {
   try {
-    let isChat = await Chat.findOne({
+    let isChat = await Chat.find({
       users: { $elemMatch: { $eq: req.user._id } },
     })
       .populate("users", "-password")
@@ -76,7 +76,7 @@ router.post("/creategroup", authorizedUser, async (req, res) => {
     let users = JSON.parse(req.body.users);
     users.push(req.user._id);
     let newChat = {
-      chatName: "test group",
+      chatName: req.body.chatName,
       isGroupChat: true,
       groupAdmin: req.user._id,
       users: users,
